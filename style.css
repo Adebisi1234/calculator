@@ -6,7 +6,7 @@ div.container {
     display: flex;
     flex-direction: column;
     width: 90vw;
-    height: 100vh;
+    height: 120vh;
     border: 1px solid black;
 
 }
@@ -20,7 +20,7 @@ div.result {
     font-size: xx-large;
 }
 
-div.numbers {
+.numbers {
     display: grid;
     grid-template-columns: repeat(3, 1fr);
     grid-template-rows: repeat(4, 1fr);
