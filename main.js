@@ -1,8 +1,3 @@
-// const evil = (fn) => {
-//     return new Function("return " + fn)();
-// };
-  
-// // console.log(evil("(12 / 5) * 9 + 9.4 * 2"));
 let dom = ''
 const equal = document.querySelector('.equal')
 const result = document.querySelector('#result')
@@ -13,6 +8,13 @@ let store = document.querySelector('.calc')
 let first = ''
 let operator = ''
 
+
+const deleted = document.querySelector('#delete')
+
+deleted.addEventListener('click', ()=> {
+    result.innerText = result.innerText.slice(0, -1)
+})
+
 numArr.forEach((x) => {
     if(x != 'A/C'){
         x.addEventListener('click', addToDom)
@@ -22,17 +24,18 @@ numArr.forEach((x) => {
 
 
 function addToDom() {
-    if(!(this.textContent == '=' || this.textContent === '+' || this.textContent === '-' || this.textContent === '/' || this.textContent === '*')){
+    if(!(this.textContent == '=' || this.textContent === '+' || this.textContent === '-' || this.textContent === '/' || this.textContent === '×')){
         // console.log(this.textContent)
         result.innerText += this.textContent
         dom += this.textContent
-    }else if (this.textContent === '+' || this.textContent === '-' || this.textContent === '/' || this.textContent === '*') {
+    }else if (this.textContent === '+' || this.textContent === '-' || this.textContent === '/' || this.textContent === '×') {
         first = dom
-        operator = this.textContent
+        operator = convertSign(this.textContent)
         dom = ''
         result.textContent = ''
         store.innerText += `${first}${this.textContent}`
         console.log(first)
+        console.log(this.textContent)
     }else if(this.textContent === '='){
         console.log(operate(operator, first, dom))
         console.log('fuck')
@@ -41,24 +44,44 @@ function addToDom() {
     }
 }
 
+const body = document.body
+
+body.addEventListener('keypress', (e)=>{
+    if(!(e.key == '=' || e.key === '+' || e.key === '-' || e.key === '/' || e.key === '*')){
+        result.innerText += e.key
+        dom += e.key
+    }else if (e.key === '+' || e.key === '-' || e.key === '/' || e.key === '*') {
+        first = dom
+        operator = e.key
+        console.log(e.key)
+        dom = ''
+        result.textContent = ''
+        store.innerText += `${first}${convertOperator(e.key)}`
+        console.log(first)
+    }else if(e.key === '='){
+        console.log(operate(operator, first, dom))
+        store.textContent = ''
+       result.textContent = operate(operator, first, dom)
+    }
+})
+
+function convertOperator(keyboardOperator) {
+    if (keyboardOperator === '/') return '÷'
+    if (keyboardOperator === '*') return '×'
+    if (keyboardOperator === '-') return '−'
+    if (keyboardOperator === '+') return '+'
+  }
+  
+  function convertSign(keyboardOperator) {
+    if (keyboardOperator === '÷') return '/'
+    if (keyboardOperator === '×') return '*'
+    if (keyboardOperator === '−') return '-'
+    if (keyboardOperator === '+') return '+'
+  }
+  
 
 
 
-
-
-
-
-
-
-
-// numArr.forEach((x) => {
-//     if(x != 'A/C' || x != '+' || x != '-' || x != '*' || x != '/'){
-//         x.addEventListener('click', addToDom)
-//     }else if (x == '+' || x == '-' || x == '*' || x == '/'){
-//         first = dom
-//         console.log(first)
-//     }
-// })
 
 ac.addEventListener('click', clear)
 
@@ -67,46 +90,6 @@ function clear() {
     result.textContent = ''
     store.textContent = ''
 }
-
-// function addToDom(e) {
-//     if(e.target.textContent != '='){
-//         result.innerText += e.target.textContent
-//         dom += e.target.textContent
-//         // console.log(dom)
-//     }
-
-
-    
-// }
-// equal.addEventListener('click', equalto)
-
-// function equalto() {
-//     result.innerText = evil(dom)
-// }
-// console.log
-
-
-// const add = function (num1, num2) {
-//     return num1 + num2
-// }
-
-// // console.log(add(24,58))
-
-// const subtract = function (num1, num2) {
-//     return num1 - num2
-// }
-
-// const multiply = function (num1, num2){
-//     return num1 * num2
-// }
-
-// function divide(num1, num2) {
-//     return num1 / num2
-// }
-
-// console.log(subtract(23, 20))
-// console.log(multiply(23, 20))
-// console.log(divide(23, 20))
 
 const operate = function (operator, num1, num2){
     if(operator === '+'){
@@ -122,4 +105,4 @@ const operate = function (operator, num1, num2){
     }
 }
 
-// console.log(operate('*', 2, 2))
+console.log(operate('*', 2, 2))
