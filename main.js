@@ -24,11 +24,11 @@ numArr.forEach((x) => {
 
 
 function addToDom() {
-    if(!(this.textContent == '=' || this.textContent === '+' || this.textContent === '-' || this.textContent === '/' || this.textContent === '×')){
+    if(!(this.textContent == '=' || this.textContent === '+' || this.textContent === '-' || this.textContent === '÷' || this.textContent === '×')){
         // console.log(this.textContent)
         result.innerText += this.textContent
         dom += this.textContent
-    }else if (this.textContent === '+' || this.textContent === '-' || this.textContent === '/' || this.textContent === '×') {
+    }else if (this.textContent === '+' || this.textContent === '-' || this.textContent === '÷' || this.textContent === '×') {
         first = dom
         operator = convertSign(this.textContent)
         dom = ''
@@ -72,11 +72,11 @@ function convertOperator(keyboardOperator) {
     if (keyboardOperator === '+') return '+'
   }
   
-  function convertSign(keyboardOperator) {
-    if (keyboardOperator === '÷') return '/'
-    if (keyboardOperator === '×') return '*'
-    if (keyboardOperator === '−') return '-'
-    if (keyboardOperator === '+') return '+'
+  function convertSign(buttons) {
+    if (buttons === '÷') return '/'
+    if (buttons === '×') return '*'
+    if (buttons === '−') return '-'
+    if (buttons === '+') return '+'
   }
   
 
