@@ -26,11 +26,11 @@ result.innerText = 0
 
 
 function addToDom() {
-    if(!(this.textContent == '=' || this.textContent === '+' || this.textContent === '-' || this.textContent === '÷' || this.textContent === '×')){
+    if(!(this.textContent == '=' || this.textContent === '+' || this.textContent === '−' || this.textContent === '÷' || this.textContent === '×')){
         // console.log(this.textContent)
         dom += this.textContent
         result.innerText = dom
-    }else if (this.textContent === '+' || this.textContent === '-' || this.textContent === '÷' || this.textContent === '×') {
+    }else if (this.textContent === '+' || this.textContent === '−' || this.textContent === '÷' || this.textContent === '×') {
         first = dom
         operator = convertSign(this.textContent)
         dom = ''
