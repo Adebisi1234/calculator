@@ -21,26 +21,27 @@ numArr.forEach((x) => {
     }
 })
 
+result.innerText = 0
+
 
 
 function addToDom() {
     if(!(this.textContent == '=' || this.textContent === '+' || this.textContent === '-' || this.textContent === '÷' || this.textContent === '×')){
         // console.log(this.textContent)
-        result.innerText += this.textContent
         dom += this.textContent
+        result.innerText = dom
     }else if (this.textContent === '+' || this.textContent === '-' || this.textContent === '÷' || this.textContent === '×') {
         first = dom
         operator = convertSign(this.textContent)
         dom = ''
         result.textContent = ''
         store.innerText += `${first}${this.textContent}`
-        console.log(first)
-        console.log(this.textContent)
     }else if(this.textContent === '='){
-        console.log(operate(operator, first, dom))
-        console.log('fuck')
         store.textContent = ''
        result.textContent = operate(operator, first, dom)
+       dom = result.textContent
+       first = result.textContent
+       console.log(`first ${first}`)
     }
 }
 
@@ -62,6 +63,8 @@ body.addEventListener('keypress', (e)=>{
         console.log(operate(operator, first, dom))
         store.textContent = ''
        result.textContent = operate(operator, first, dom)
+       dom = ''
+       first = ''
     }
 })
 
@@ -87,8 +90,9 @@ ac.addEventListener('click', clear)
 
 function clear() {
     dom = ''
-    result.textContent = ''
+    result.textContent = 0
     store.textContent = ''
+    first = 0
 }
 
 const operate = function (operator, num1, num2){
@@ -100,9 +104,10 @@ const operate = function (operator, num1, num2){
         return Number(num1) / Number(num2)
     }else if(operator === '*') {
         return Number(num1) * Number(num2)
+    }else if(!operator) {
+        console.log(operator)
+        return `${num2}`
     }else {
         return 'Math Error'
     }
 }
-
-console.log(operate('*', 2, 2))
